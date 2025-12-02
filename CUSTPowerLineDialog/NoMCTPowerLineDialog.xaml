@@ -1,0 +1,135 @@
+﻿<Window x:Class="CUSTPowerLineDialog.NoMctPowerLineDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reason for MCT Unavailability"
+        Height="350" Width="420"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Topmost="True"
+        Background="#FFF"
+        FontFamily="Segoe UI"
+        WindowStyle="None"
+        AllowsTransparency="True">
+    <Border CornerRadius="10" Background="#FFF" Padding="0" BorderBrush="#DDD" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Custom Title Bar -->
+            <DockPanel Grid.Row="0" Background="#474e5a" Height="40" LastChildFill="True" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <TextBlock Text="Reason for MCT Unavailability"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Foreground="#FFF"
+                           Margin="16,0,0,0"/>
+                <Button Content="✕" 
+                        Width="32" Height="32"
+                        Margin="0,2,4,2"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#888"
+                        FontSize="16"
+                        Click="Cancel_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="16"> <!-- Half of Width/Height -->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-2,0,0"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#EEE"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
+
+            <!-- Main Content -->
+            <StackPanel Grid.Row="1" Margin="16,16,16,0">
+                <TextBlock Text="Please select a reason for MCT unavailability:"
+                           FontSize="14" FontWeight="SemiBold"
+                           Margin="0,0,0,16"/>
+                <RadioButton x:Name="Option1" Content="MCT NOT LOGGED IN" GroupName="Reasons"
+                             Margin="0,12" FontSize="14" Checked="Option_Click"
+                             VerticalAlignment="Center" VerticalContentAlignment="Center"
+                             TabIndex="0" GotKeyboardFocus="RadioButton_GotKeyboardFocus"/>
+                <RadioButton x:Name="Option2" Content="MCT NOT ANSWERING RADIO" GroupName="Reasons"
+                             Margin="0,12" FontSize="14" Checked="Option_Click"
+                             VerticalAlignment="Center" VerticalContentAlignment="Center"
+                             TabIndex="1" GotKeyboardFocus="RadioButton_GotKeyboardFocus"/>
+                <RadioButton x:Name="Option3" Content="MCT ASSIGNED TO ANOTHER INCIDENT" GroupName="Reasons"
+                             Margin="0,12" FontSize="14" Checked="Option_Click"
+                             VerticalAlignment="Center" VerticalContentAlignment="Center"
+                             TabIndex="2" GotKeyboardFocus="RadioButton_GotKeyboardFocus"/>
+                <StackPanel Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                    <RadioButton x:Name="OptionOther" Content="OTHER:" GroupName="Reasons"
+                                 Margin="0,0,8,0" FontSize="14" Checked="Option_Click"
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                 TabIndex="3" GotKeyboardFocus="RadioButton_GotKeyboardFocus"/>
+                    <TextBox x:Name="TextOther" Width="300" IsEnabled="False"
+                             VerticalAlignment="Center" FontSize="14"
+                             BorderBrush="#0078D7" BorderThickness="2" Background="#F4F8FC"
+                             TabIndex="4"/>
+                </StackPanel>
+                <TextBlock x:Name="WarningText"
+                           Text="Please select a reason before continuing."
+                           Foreground="Red"
+                           Visibility="Collapsed"
+                           Margin="0,8,0,0"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,16,16">
+                <Button Content="OK" Width="80" Height="36" Margin="4" Click="Ok_Click"
+                        Background="#1066c7" Foreground="White" BorderThickness="0"
+                        FontWeight="SemiBold" Padding="6,2" Cursor="Hand"
+                        IsDefault="True">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#3f84d2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Content="Cancel" Width="80" Height="36" Margin="4" Click="Cancel_Click"
+                        Background="Transparent" Foreground="#1066c7" BorderThickness="0"
+                        FontWeight="SemiBold" Padding="6,2" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
+

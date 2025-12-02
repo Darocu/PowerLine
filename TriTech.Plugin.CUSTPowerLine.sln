@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriTech.Plugin.CUSTPowerLine", "TriTech.Plugin.CUSTPowerLine\TriTech.Plugin.CUSTPowerLine.csproj", "{13A380E8-06CE-49DD-8500-3BBA6F571BC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUSTPowerLineDialog", "CUSTPowerLineDialog\CUSTPowerLineDialog.csproj", "{E4942D8C-6D5D-4F57-94BB-D907C9C35CD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13A380E8-06CE-49DD-8500-3BBA6F571BC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A380E8-06CE-49DD-8500-3BBA6F571BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A380E8-06CE-49DD-8500-3BBA6F571BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A380E8-06CE-49DD-8500-3BBA6F571BC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4942D8C-6D5D-4F57-94BB-D907C9C35CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4942D8C-6D5D-4F57-94BB-D907C9C35CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4942D8C-6D5D-4F57-94BB-D907C9C35CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4942D8C-6D5D-4F57-94BB-D907C9C35CD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
