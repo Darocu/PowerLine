@@ -60,11 +60,24 @@ public class WorkstationPlugin : WorkstationPluginBase
                 out _
             );
             
+        }
+        else if (!existingCommands.Contains(NoMctCommand.CommandName))
+        {
             CADManager.CommandLineActionEngine.AddCustomCommand(
                 VisiCADDefinition.CommandCategory.Enterprise.ToString(), // ActionType must be a value from CommandCategory - Interface, Enterprise, Unit, Combined
                 NoMctCommand.CommandName, // CommandDescription
                 PluginName,
                 NoMctCommand.CommandName, //CommandName
+                out _
+            );
+        }
+        else if (!existingCommands.Contains(UpdateUnitStatusLocationCommand.CommandName))
+        {
+            CADManager.CommandLineActionEngine.AddCustomCommand(
+                VisiCADDefinition.CommandCategory.Enterprise.ToString(), // ActionType must be a value from CommandCategory - Interface, Enterprise, Unit, Combined
+                UpdateUnitStatusLocationCommand.CommandName, // CommandDescription
+                PluginName,
+                UpdateUnitStatusLocationCommand.CommandName, //CommandName
                 out _
             );
         }
@@ -80,6 +93,9 @@ public class WorkstationPlugin : WorkstationPluginBase
                 break;
             case NoMctCommand.CommandName:
                 command = new NoMctCommand(CADManagerAdapter);
+                break;
+            case UpdateUnitStatusLocationCommand.CommandName:
+                command = new UpdateUnitStatusLocationCommand(CADManagerAdapter);
                 break;
             default:
                 command = null;

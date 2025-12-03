@@ -70,6 +70,7 @@
     <ItemGroup>
         <Compile Include="NoMCTCommand.cs" />
         <Compile Include="ServiceNowCommand.cs" />
+        <Compile Include="UpdateUnitStatusLocationCommand.cs" />
         <Compile Include="WorkstationPlugin.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
