@@ -13,13 +13,17 @@ namespace TriTech.Plugin.CUSTPowerLine;
 /// WorkstationPlugin for CUSTPowerLine
 /// To enable a PowerLine in CAD you need to go to Toolbox --> Permission Security Manager --> Function Level Security
 /// Find the Functionality group you want to enable the PowerLine for, and then find PowerLine - {CommandName} in the list.
-/// Double click "No" to change it to ""Yes" and save.
+/// Double click "No" to change it to "Yes" and save.
 /// Go to Configuration Utility --> System Tools --> PowerLine Configuration --> Commands --> Assign Commands
 /// Filter for {CommandName} and select "Next". Set the "Description" to the name. Set the "Agency". Set the "Command".
 /// Select "Assign" to assign the command. Select "Save" to save the configuration.
 ///
 /// To test this, build the project and take the file TriTech.Plugin.CUSTPowerLine.dll from the output folder and
-/// overwrite the existing file in the NET folder of your VisiCAD installation.
+/// overwrite the existing file in the C:\TriTech\Staging\TriTech\VisiCad\NET folder of your VisiCAD installation.
+///
+/// To deploy this, build the project and take the file TriTech.Plugin.CUSTPowerLine.dll from the output folder and
+/// make a copy of the original TriTech.Plugin.CUSTPowerLine.dll file, archive it, then overwrite the existing
+/// file in the test or production file server located in the D:\VisiCAD\TriTech\VisiCAD\NET folder.
 /// </summary>
 
 public class WorkstationPlugin : WorkstationPluginBase
