@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,8 @@ public class ServiceNowCommand : CommandBase
     private string _snowLogEntriesPath;
     private string _snowIncidentValue;
     private string _snowUserSysId;
+    private string _emailSubject;
+    private string _emailBody;
     
     public ServiceNowCommand(ICADManager cadManager) : base(cadManager)
     {
@@ -145,6 +148,10 @@ public class ServiceNowCommand : CommandBase
                 await CleanUpGeneratedFiles();
                 InvokeCommandComplete(new BasicCommandResult(CommandState.Success, this));
                 CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API", $"File Cleanup Completed");
+                
+                await SendSupervisorEmail();
+                InvokeCommandComplete(new BasicCommandResult(CommandState.Success, this));
+                CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API", $"Supervisor Email Sent");
             }
             
             CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API", $"Completed {CommandName} Command");
@@ -361,7 +368,7 @@ public class ServiceNowCommand : CommandBase
                               $"CHRIS ID: {_cadChrisId},\n" +
                               $"User Name: {_cadName},\n" +
                               $"Issue Description: {_description},\n" +
-                              $"ServiceNow CAD Integration v2025.2.0"
+                              $"ServiceNow CAD Integration v2025.3.0"
             };
 
             var json = JsonConvert.SerializeObject(data);
@@ -383,6 +390,12 @@ public class ServiceNowCommand : CommandBase
             dynamic serviceNowResponse = JObject.Parse(responseContent);
 
             _snowIncidentValue = serviceNowResponse.result.sys_id.ToString();
+            
+            _emailSubject = "GRIPE: " + data.short_description;
+            _emailBody = $"A GRIPE has been submitted by {_cadName} at {_hostName}:\n\n" + 
+                         $"Timestamp: {DateTime.Now:yyyy-MM-dd HH:mm:ss},\n\n" +
+                         $"Issue Description: {_description},\n\n" +
+                         $"ServiceNow CAD Integration v2025.3.0";
         }
         catch (Exception ex)
         {
@@ -460,6 +473,40 @@ public class ServiceNowCommand : CommandBase
             CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API", $"Stack trace: {ex.StackTrace}");
         }
 
+        return Task.CompletedTask;
+    }
+
+    private Task SendSupervisorEmail()
+    {
+        var mail = new MailMessage();
+        mail.From = new MailAddress("GRIPE@ecscad.local");
+        mail.To.Add("ECCSupervisors@cincinnati-oh.gov");
+        mail.Subject = _emailSubject;
+        mail.Body = _emailBody;
+        mail.IsBodyHtml = false;
+        
+        var smtpClient = new SmtpClient("smtp.rcc.org");
+        smtpClient.Port = 25;
+        smtpClient.EnableSsl = false;
+
+        try
+        {
+            CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API",$"Sending email notification: {_emailSubject}");
+
+            smtpClient.Send(mail);
+
+            CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API",$"Email notification sent successfully");
+
+        }
+        catch (Exception ex)
+        {
+            CADManager.GeneralActionEngine.AddActivityLogEntry("ServiceNow API",$"Error sending email notification: {ex.Message}");
+        }
+        finally
+        {
+            mail.Dispose(); // Release resources
+            smtpClient.Dispose(); // Release resources
+        }
         return Task.CompletedTask;
     }
 
