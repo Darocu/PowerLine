@@ -480,7 +480,7 @@ public class ServiceNowCommand : CommandBase
     {
         var mail = new MailMessage();
         mail.From = new MailAddress("GRIPE@ecscad.local");
-        mail.To.Add("ECCSupervisors@cincinnati-oh.gov");
+        mail.To.Add("eae507af.cincinnati.onmicrosoft.com@amer.teams.ms");
         mail.Subject = _emailSubject;
         mail.Body = _emailBody;
         mail.IsBodyHtml = false;

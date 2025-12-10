@@ -24,6 +24,9 @@ namespace TriTech.Plugin.CUSTPowerLine;
 /// To deploy this, build the project and take the file TriTech.Plugin.CUSTPowerLine.dll from the output folder and
 /// make a copy of the original TriTech.Plugin.CUSTPowerLine.dll file, archive it, then overwrite the existing
 /// file in the test or production file server located in the D:\VisiCAD\TriTech\VisiCAD\NET folder.
+///
+/// To force an update you can modify the file at "D:\Visicad\TriTech\VisiCAD\Data\System\servermodified.dat" by
+/// adding and removing a space. This is done on the test or production file server.
 /// </summary>
 
 public class WorkstationPlugin : WorkstationPluginBase
